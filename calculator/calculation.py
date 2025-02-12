@@ -1,4 +1,3 @@
-from calculator.operations import add, subtract, multiply, divide
 from typing import Callable
 from decimal import Decimal
 
@@ -17,4 +16,3 @@ class Calculation:
 
     def __repr__(self):
         return f"Calculation({self.a}, {self.b}, {self.operation.__name__})"
-

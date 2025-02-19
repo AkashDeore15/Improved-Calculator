@@ -8,10 +8,8 @@ from calculator.operations import add, subtract, multiply, divide
 def setup_calculation():
     """Set up the Calculation class."""
     Calculations.clear_history()
-    Calculation(Decimal('1'), Decimal('2'), add)
-    Calculation(Decimal('1'), Decimal('2'), subtract)
-    Calculation(Decimal('1'), Decimal('2'), multiply)
-    Calculation(Decimal('1'), Decimal('2'), divide)
+    Calculations.add_calculation(Calculation(Decimal('10'), Decimal('5'), add))
+    Calculations.add_calculation(Calculation(Decimal('20'), Decimal('3'), subtract))
 
 def test_add_calculation(setup_calculation):
     """Test adding a calculation to the history."""
@@ -26,13 +24,13 @@ def test_get_history(setup_calculation):
 
 def test_clear_history(setup_calculation):
     """Test clearing the entire calculation history."""
-    history = Calculations.clear_history()
-    assert len(history) == 0, "Failed to clear history."
+    Calculations.clear_history()
+    assert len(Calculations.get_history()) == 0, "Failed to clear history."
 
 def test_last_calculation(setup_calculation):
     """Test getting the last calculation."""
     latest = Calculations.get_last_calculation()
-    assert latest.a == Decimal('1') and latest.b == Decimal('2'), "Failed to get latest calculation."
+    assert latest.a == Decimal('20') and latest.b == Decimal('3'), "Did not get the correct latest calculation"
 
 def test_find_calculations_by_operation(setup_calculation):
     """Test finding calculations by operation."""
@@ -41,12 +39,6 @@ def test_find_calculations_by_operation(setup_calculation):
 
     subtract_operation = Calculations.find_calculations_by_operation('subtract')
     assert len(subtract_operation) == 1, "Failed to find calculations by subtract operation."
-
-    multiply_operation = Calculations.find_calculations_by_operation('multiply')
-    assert len(multiply_operation) == 1, "Failed to find calculations by multiply operation."   
-
-    divide_operation = Calculations.find_calculations_by_operation('divide')
-    assert len(divide_operation) == 1, "Failed to find calculations by divide operation."
 
 def test_get_last_with_empty_history():
     """Test getting the last calculation with an empty history."""

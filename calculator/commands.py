@@ -50,3 +50,19 @@ class DivideCommand(Command):
     def execute(self):
         '''Execute the divide command'''
         return Calculator.divide(self.a, self.b)
+    
+class MenuCommand(Command):
+    '''Command to display the menu.'''
+    def __init__(self, command_dict):
+        self.command_dict = command_dict
+    
+    def execute(self):
+        print("\nAvailable Operations:")
+        # Regular calculator commands that need arguments
+        for command in self.command_dict:
+            if command != 'menu':
+                print(f"- {command} <number1> <number2>")
+        # Special commands that don't need arguments
+        print("- menu (displays the available commands)")
+        print("- exit (quit the application)")
+        return "Menu displayed"

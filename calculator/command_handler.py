@@ -34,7 +34,7 @@ class CommandHandler:
             a, b = map(Decimal, args)
             return AddCommand(a, b)
         except (InvalidOperation, ValueError) as e:
-            print(f"Error creating add command: {e}")
+            print(f"Error creating add command: Please provide valid number for addition")
             return None
         
     def create_subtract_command(self, args):
@@ -43,7 +43,7 @@ class CommandHandler:
             a, b = map(Decimal, args)
             return SubtractCommand(a, b)
         except (InvalidOperation, ValueError) as e:
-            print(f"Error creating subtract command: {e}")
+            print(f"Error creating subtract command: Please provide valid number for substraction")
             return None
         
     def create_multiply_command(self, args):
@@ -52,7 +52,7 @@ class CommandHandler:
             a, b = map(Decimal, args)
             return MultiplyCommand(a, b)
         except (InvalidOperation, ValueError) as e:
-            print(f"Error creating multiply command: {e}")
+            print(f"Error creating multiply command: Please provide valid number for multiplication")
             return None
         
     def create_divide_command(self, args):
@@ -61,5 +61,16 @@ class CommandHandler:
             a, b = map(Decimal, args)
             return DivideCommand(a, b)
         except (InvalidOperation, ValueError) as e:
-            print(f"Error creating divide command: {e}")
+            print(f"Error creating divide command: Please provide valid number for division")
             return None
+
+def _create_command(self, command_class, args):
+    """Create a command instance from a command class."""
+    try:
+        # Convert arguments to Decimal
+        decimal_args = list(map(Decimal, args))
+        return command_class(*decimal_args)
+    except (InvalidOperation, ValueError):
+        command_name = command_class.__name__.lower().replace('command', '')
+        print(f"Error: Please provide valid numbers for {command_name}.")
+        return None

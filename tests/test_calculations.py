@@ -54,3 +54,21 @@ def test_get_last_with_empty_history():
     Calculations.clear_history()
     assert Calculations.get_last_calculation() is None,\
           "Failed to get last calculation with empty history."
+
+@pytest.mark.usefixtures("setup_calculation")
+def test_get_first_n_calculations():
+    """Test getting the first n calculations from history."""
+    # Add a third calculation to have more data
+    calc = Calculation(Decimal('30'), Decimal('5'), add)
+    Calculations.add_calculation(calc)
+    # Get more calculations than exist in history
+    all_calcs = Calculations.get_first_n_calculations(10)
+    assert all_calcs is not None, "Failed to get all calculations"
+    assert len(all_calcs) == 3, "Failed to handle n larger than history size"
+
+@pytest.mark.usefixtures("setup_calculation")
+def test_empty_get_n_calculations():
+    """Test edge cases with empty history for get_n methods."""
+    Calculations.clear_history()
+    assert Calculations.get_last_n_calculations(1) is None, "Should return None for empty history"
+    assert Calculations.get_first_n_calculations(1) is None, "Should return None for empty history"

@@ -4,6 +4,7 @@ The tests cover the AddCommand, SubtractCommand, MultiplyCommand, DivideCommand,
       MenuCommand classes.
 """
 from decimal import Decimal
+from unittest.mock import patch
 import pytest
 from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from calculator.command_handler import CommandHandler
@@ -60,3 +61,13 @@ def test_menu_command(capsys):
     assert "menu" in captured.out
     # Check that the result is as expected
     assert result == "Menu displayed"
+
+def test_nonexistent_plugins_dir():
+    """Test behavior when plugins directory does not exist."""
+    # When plugins dir doesn't exist, the power command won't be loaded
+    with patch('os.path.exists') as mock_exists:
+        # Return False only for the plugins directory check
+        mock_exists.side_effect = lambda path: 'plugins' not in path
+        handler = CommandHandler()
+        # No exception should be raised
+        assert 'power' not in handler.command_dict

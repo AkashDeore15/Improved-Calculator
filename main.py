@@ -3,7 +3,6 @@
 #import sys
 from calculator import Calculator
 from decimal import Decimal, InvalidOperation
-from calculator import command_handler
 from calculator.command_handler import CommandHandler
 
 # def calculate_and_print(a, b, operation_name):
@@ -37,7 +36,7 @@ def main():
     print("Type 'exit' to quit the application.")
 
     # Display available commands at startup using menu command
-    menu_command = command_handler.get_command('menu', [])
+    menu_command = command_handeler.get_command('menu', [])
     if menu_command:
         menu_command.execute()
     
@@ -57,6 +56,13 @@ def main():
             continue
         command_name = parts[0].lower()
         args = parts[1:] if len(parts) > 1 else []
+
+        # Special commands that don't need arguments
+        if command_name == 'menu':
+            menu_command = command_handeler.get_command('menu', [])
+            if menu_command:
+                menu_command.execute()
+            continue
 
         #Evaluate the command
         if command_name in command_handeler.command_dict:

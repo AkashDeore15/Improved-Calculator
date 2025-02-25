@@ -8,8 +8,7 @@ from calculator import Calculator
 class Command(ABC):
     @abstractmethod
     def execute(self):        
-        '''Execute the command.'
-        '''
+        '''Execute the command.'''
         pass
 
 class AddCommand(Command):

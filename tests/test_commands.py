@@ -1,10 +1,11 @@
 """
 The test_commands.py file contains tests for the command classes in the calculator.commands module.
-The tests cover the AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, and MenuCommand classes.
+The tests cover the AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, and\
+      MenuCommand classes.
 """
 from decimal import Decimal
 import pytest
-from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, MenuCommand
+from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from calculator.command_handler import CommandHandler
 
 def test_add_command():
@@ -36,14 +37,11 @@ def test_divide_by_zero_command():
 def test_command_handler():
     """Test the CommandHandler."""
     handler = CommandHandler()
-    
     # Test add command
     add_cmd = handler.get_command('add', ['5', '3'])
     assert add_cmd.execute() == Decimal('8')
-    
     # Test invalid command
     assert handler.get_command('invalid', []) is None
-    
     # Test invalid arguments
     assert handler.get_command('add', ['invalid', '3']) is None
 
@@ -52,13 +50,13 @@ def test_menu_command(capsys):
     handler = CommandHandler()
     menu_cmd = handler.get_command('menu', [])
     result = menu_cmd.execute()
-    
     # Check that output contains expected commands
     captured = capsys.readouterr()
     assert "Available commands:" in captured.out
     assert "add" in captured.out
     assert "subtract" in captured.out
+    assert "multiply" in captured.out
+    assert "divide" in captured.out
     assert "menu" in captured.out
-    
     # Check that the result is as expected
     assert result == "Menu displayed"

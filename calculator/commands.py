@@ -57,7 +57,7 @@ class MenuCommand(Command):
         self.command_dict = command_dict
     
     def execute(self):
-        print("\nAvailable Operations:")
+        print("\nAvailable commands:")
         # Regular calculator commands that need arguments
         for command in self.command_dict:
             if command != 'menu':

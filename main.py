@@ -30,11 +30,9 @@ from calculator.command_handler import CommandHandler
 
 def main():
     '''Main function for the calculator application with REPL.'''
-    command_handeler = CommandHandler()
-
     print("Welcome to the calculator application!")
     print("Type 'exit' to quit the application.")
-
+    command_handeler = CommandHandler()
     # Display available commands at startup using menu command
     menu_command = command_handeler.get_command('menu', [])
     if menu_command:

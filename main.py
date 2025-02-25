@@ -1,8 +1,4 @@
 """Main module for the calculator application with REPL."""
-
-#import sys
-from calculator import Calculator
-from decimal import Decimal, InvalidOperation
 from calculator.command_handler import CommandHandler
 
 # def calculate_and_print(a, b, operation_name):

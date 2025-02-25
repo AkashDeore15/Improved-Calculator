@@ -3,6 +3,7 @@ This module contains the CommandHandler class, which is responsible for creating
 """
 from decimal import Decimal, InvalidOperation
 from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
+from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand, MenuCommand
 
 class CommandHandler:
     def __init__(self):
@@ -13,7 +14,14 @@ class CommandHandler:
             'multiply': self.create_multiply_command,
             'divide': self.create_divide_command,
         }
-    
+        #Add menu command- this is a special command that displays the available commands
+        self.command_dict['menu'] = self.create_menu_command
+
+    def create_menu_command(self, args):
+        """Create a MenuCommand to display available commands."""
+        return MenuCommand(self.command_dict)
+
+
     def get_command(self, command_name, args):
         '''Get the command based on the command name and arguments.'''
         if command_name in self.command_dict:

@@ -20,7 +20,9 @@ def test_multiprocessing_error_handling():
     """Test error handling in multiprocessing."""
     # Create a command that will raise an exception
     class ErrorCommand:
+        """A command that raises an exception."""
         def execute(self):
+            """Raise an exception."""
             raise ValueError("Test error")
     # Test that the error is properly propagated
     with pytest.raises(ValueError, match="Test error"):

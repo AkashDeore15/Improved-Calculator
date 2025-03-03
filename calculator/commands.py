@@ -64,5 +64,6 @@ class MenuCommand(Command):
                 print(f"- {command} <number1> <number2>")
         # Special commands that don't need arguments
         print("- menu (displays the available commands)")
+        print("- log (displays recent log entries)")
         print("- exit (quit the application)")
         return "Menu displayed"

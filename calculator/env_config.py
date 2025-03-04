@@ -14,11 +14,25 @@ def load_environment():
     # Load .env file if it exists
     load_dotenv()
     
-    # Get configuration values with defaults
+    # Get LOG_LEVEL with default
+    log_level = os.getenv('LOG_LEVEL')
+    if log_level is None:
+        log_level = 'INFO'
+    
+    # Get PLUGINS_PATH with default
+    plugins_path = os.getenv('PLUGINS_PATH')
+    if plugins_path is None:
+        plugins_path = 'calculator/plugins'
+    
+    # Get DEBUG_MODE with default
+    debug_mode = os.getenv('DEBUG_MODE')
+    if debug_mode is None:
+        debug_mode = 'False'
+    
     config = {
-        'LOG_LEVEL': os.getenv('LOG_LEVEL', 'INFO'),
-        'PLUGINS_PATH': os.getenv('PLUGINS_PATH', 'calculator/plugins'),
-        'DEBUG_MODE': os.getenv('DEBUG_MODE', 'False').lower() == 'true'
+        'LOG_LEVEL': log_level,
+        'PLUGINS_PATH': plugins_path,
+        'DEBUG_MODE': debug_mode.lower() == 'true'
     }
     
     return config

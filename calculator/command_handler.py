@@ -38,7 +38,7 @@ class CommandHandler:
         
         # Get all Python files in the plugins directory
         plugin_files = [f for f in os.listdir(plugins_dir) 
-                       if f.endswith('.py') and not f.startswith('__')]
+                    if f.endswith('.py') and not f.startswith('__')]
         logger.info(f"Found {len(plugin_files)} potential plugin files")
         
         for plugin_file in plugin_files:
@@ -61,14 +61,15 @@ class CommandHandler:
                         if command_name.endswith('command'):
                             command_name = command_name[:-7]
                         
-                        # Add to command dictionary
-                        self.command_dict[command_name] = lambda args, cls=obj: self._create_command(cls, args)
+                        # Add to command dictionary - create a stable reference to class
+                        # to prevent closure issues
+                        command_class = obj  # Create a stable reference
+                        self.command_dict[command_name] = lambda args, cls=command_class: self._create_command(cls, args)
                         logger.info(f"Successfully loaded plugin command: {command_name}")
-                        #print(f"Loaded plugin command: {command_name}")
             
             except Exception as e:
                 logger.error(f"Error loading plugin {module_name}: {str(e)}", exc_info=True)
-                print(f"Error loading plugin {module_name}: The reuired operation is not available")
+                print(f"Error loading plugin {module_name}: The required operation is not available")
 
     def _create_command(self, command_class, args):
         """Create a command instance from a command class."""
